@@ -1,7 +1,5 @@
 /* @flow */
 
-/* @flow */
-
 import React, { PureComponent, PropTypes } from 'react';
 import {
   Animated,
