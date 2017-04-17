@@ -1,5 +1,7 @@
 /* @flow */
 
+/* @flow */
+
 import React, { PureComponent, PropTypes } from 'react';
 import {
   Animated,
@@ -8,7 +10,6 @@ import {
   Text,
   ScrollView,
   Platform,
-  I18nManager,
 } from 'react-native';
 import TouchableItem from './TouchableItem';
 import { SceneRendererPropType } from './TabViewPropTypes';
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
     overflow: Platform.OS === 'web' ? 'auto' : 'scroll',
   },
   tabBar: {
-    backgroundColor: '#2196f3',
+    backgroundColor: 'transparent',
     elevation: 4,
     shadowColor: 'black',
     shadowOpacity: 0.1,
@@ -40,12 +41,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     color: 'white',
     margin: 8,
+    fontSize: 15
   },
   tabItem: {
-    flexGrow: 1,
     padding: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   badge: {
     position: 'absolute',
@@ -60,12 +59,12 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   indicator: {
-    backgroundColor: '#ffeb3b',
+    backgroundColor: 'red',
     position: 'absolute',
     left: 0,
-    bottom: 0,
+    top: 0,
     right: 0,
-    height: 2,
+    height: 4,
   },
 });
 
@@ -196,7 +195,7 @@ export default class TabBar extends PureComponent<DefaultProps, Props, State> {
       return this.props.renderIndicator(props);
     }
     const { width, position } = props;
-    const translateX = Animated.multiply(Animated.multiply(position, width), I18nManager.isRTL ? -1 : 1);
+    const translateX = Animated.multiply(position, width);
     return (
       <Animated.View
         style={[ styles.indicator, { width, transform: [ { translateX } ] }, this.props.indicatorStyle ]}
